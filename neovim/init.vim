@@ -92,8 +92,12 @@ set hlsearch
 set list
 set listchars=space:·,tab:→\ ,trail:•
 highlight SpecialKey ctermfg=DarkGray guifg=#A0A0A0
-highlight BadWhitespace ctermbg=red guibg=darkred
+" ghlight BadWhitespace ctermbg=red guibg=darkred
 
+"----------Custom command
+" clear line number & white space formatting
+command Rfm set number! list!
+command Sfm set number list
 
 " ---------- Syntax
 if has("syntax")
