@@ -42,6 +42,14 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 call plug#end()
 
+"========== Plugin configuration
+"---------- Airline relates
+" Airline diplays status of editor so don't need to showmode
+" e.g. [-- INSERT --], [-- VISUAL --]
+set noshowmode
+" use airline theme
+let g:airline_theme='raven'
+
 " ---------- Key Map
 " mapping only normal mode F8 to TagbarToggle
 nnoremap <F8> :TagbarToggle<CR>
@@ -59,8 +67,6 @@ let g:SrcExpl_gobackKey = "<SPACE>"
 " -----------------Tagbar
 " when toggle tagbar the focus will move to tagbar window
 let g:tagbar_autofocus = 1
-" -----------------Colorscheme
-
 
 " show line number
 set number
@@ -94,6 +100,9 @@ set listchars=space:·,tab:→\ ,trail:•
 highlight SpecialKey ctermfg=DarkGray guifg=#A0A0A0
 highlight BadWhitespace ctermbg=red guibg=darkred
 
+"----------Custom command
+command Rfm set number! list!
+command Sfm set number list
 
 " ---------- Syntax
 if has("syntax")
