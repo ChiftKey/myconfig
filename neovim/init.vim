@@ -9,7 +9,7 @@ endif
 
 "----------Plug in Manger : vim-plug
 call plug#begin(stdpath('data') . '/plugged')
-"·Color·Scheme
+" Color Scheme
 "Plug 'nanotech/jellybeans.vim'
 "Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
@@ -17,22 +17,22 @@ Plug 'ghifarit53/tokyonight-vim'
 " various languages enhanced syntax
 Plug 'sheerun/vim-polyglot'
 "--------------------
-"·Status·bar
+" Status bar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "--------------------
-"·File·Explorer
+" File Explorer
 Plug 'preservim/nerdtree'
 " File Explorer With Icon
 Plug 'ryanoasis/vim-devicons'
 "--------------------
-"·Bracket·Highlighter"
+" Bracket Highlighter"
 Plug 'luochen1990/rainbow'
 "--------------------
-"·Tagbar
+" Tagbar
 Plug 'majutsushi/tagbar'
 "--------------------
-"·use·cscope·easily
+" use cscope easily
 Plug 'ronakg/quickr-cscope.vim'
 "--------------------
 Plug 'wesleyche/SrcExpl' " exploring the source code definition
@@ -40,9 +40,17 @@ Plug 'wesleyche/SrcExpl' " exploring the source code definition
 Plug 'tpope/vim-fugitive'
 " highlight changing
 Plug 'airblade/vim-gitgutter'
+" Language auto complete
+" NOTE : required clangd
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Auto complete bracket, quotes
+Plug 'raimondi/delimitmate'
+
 call plug#end()
 
 "========== Plugin configuration
+"---------- Rainbow bracket
+let g:rainbow_active = 1
 "---------- Airline relates
 " Airline diplays status of editor so don't need to showmode
 " e.g. [-- INSERT --], [-- VISUAL --]
@@ -50,23 +58,24 @@ set noshowmode
 " use airline theme
 let g:airline_theme='raven'
 
-" ---------- Key Map
+"---------- Tagbar relates
+" when toggle tagbar the focus will move to tagbar window
+let g:tagbar_autofocus = 1
 " mapping only normal mode F8 to TagbarToggle
 nnoremap <F8> :TagbarToggle<CR>
+
+"---------- NERDTree relates
 " mapping not recursively F9 to NerdtreeToogle  all mode except for INSERT Mode
 noremap <F9> <Esc>:NERDTreeToggle<CR>
-nnoremap <F7> :SrcExplToggle<CR>
 
-" -----------------SrcExpl
+"---------- Source Explorer releates
+nnoremap <F7> :SrcExplToggle<CR>
 let g:SrcExpl_winHeight = 8 "SrcExpl window height
 let g:SrcExpl_refreshTime = 100 "refreshing time = 100ms
 " // Set "Enter" key to jump into the exact definition context 
 let g:SrcExpl_jumpKey = "<ENTER>"
 " // Set "Space" key for back from the definition context 
 let g:SrcExpl_gobackKey = "<SPACE>"
-" -----------------Tagbar
-" when toggle tagbar the focus will move to tagbar window
-let g:tagbar_autofocus = 1
 
 " show line number
 set number
@@ -74,11 +83,13 @@ set numberwidth=2
 " tab size
 set tabstop=4
 set shiftwidth=4
-" ---------- Indent
+"---------- Indent
 set autoindent
 set cindent
 " ignore indent when the preprocessor is typed
 set smartindent
+set smarttab                            " make <tab> and <backspace> smarter"
+set noexpandtab                         " use tabs, not spaces"
 
 " ---------- Color Scheme
 set background=dark
@@ -88,10 +99,6 @@ colorscheme gruvbox
 "let g:tokyonight_enable_italic = 1
 "colorscheme tokyonight
 
-"colorscheme onedark
-" highlight brackets colorful
-let g:rainbow_active = 1
-
 " ---------- Highlight
 set cursorline
 set hlsearch
@@ -100,10 +107,27 @@ set listchars=space:·,tab:→\ ,trail:•
 highlight SpecialKey ctermfg=DarkGray guifg=#A0A0A0
 "highlight BadWhitespace ctermbg=red guibg=darkred
 
-"----------Custom command
-" clear line number & white space formatting
-command Rfm set number! list!
-command Sfm set number list
+"----------Search
+set incsearch
+set ignorecase
+
+" Clear highlight for search result				[,] -> [Space key]
+nnoremap ,<space> :noh<CR>
+" Toggle line number & white space formatting	[,] -> [m]
+nnoremap ,m :set number! list!<CR>
+"----------C code auto formatting
+" NOTE : asytle is required
+" auto formatting like linux kernel coding
+nnoremap ,f :%!astyle --style=linux --indent-switches --pad-header --pad-oper --delete-empty-lines --indent=tab<CR>
+" autocmd BufWritePre *.h,*.hpp,*.c,*.cpp :%!astyle --style=otbs --pad-oper --delete-empty-lines --indent=tab
+
+" Compile & Run
+" noremap <Ctrl><F5> !gcc -o hsomename % && ./somename
+nnoremap ,<F5> :!gcc -Wall % && ./a.out <CR>
+nnoremap ,<F6> :!gcc -Wall %<CR>
+nnoremap ,<F7> :!gcc -Wall -g %<CR>
+" map <F8> :w <CR> :!gcc % && ./a.out <CR>
+" map <F8> :w <CR> :!gcc % -o %< && ./%< <CR>
 
 " ---------- Syntax
 if has("syntax")
@@ -115,13 +139,12 @@ filetype on
 set fileencoding=utf-8
 set encoding=UTF-8
 
-" ---------- Ctags!
+" ----------Ctags!
 " ctags
 set tags=./tags,tags
-"set tags+=~/.stdlib.tag,/home/$USER/.stdlib.tag
+" set tags+=~/.stdlib.tag,/home/$USER/.stdlib.tag
 set tags+=/home/$USER/.tags/stdlib.tag
 " set tags+=/home/$USER/.tags/dbus.tag
-" ----------------------------------------
 " ---------- cscope
 if filereadable("./cscope.out")
 	cs add cscope.out
