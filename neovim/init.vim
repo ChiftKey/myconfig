@@ -108,8 +108,13 @@ highlight SpecialKey ctermfg=DarkGray guifg=#A0A0A0
 "highlight BadWhitespace ctermbg=red guibg=darkred
 
 "----------Search
-set incsearch
-set ignorecase
+set incsearch " show incremental search results as you type
+"without capital character -> ingnore
+"more than one capatal character -> case sensitve
+set smartcase
+
+"----------
+set noswapfile
 
 " Clear highlight for search result				[,] -> [Space key]
 nnoremap ,<space> :noh<CR>
@@ -118,7 +123,10 @@ nnoremap ,m :set number! list!<CR>
 "----------C code auto formatting
 " NOTE : asytle is required
 " auto formatting like linux kernel coding
-nnoremap ,f :%!astyle --style=linux --indent-switches --pad-header --pad-oper --delete-empty-lines --indent=tab<CR>
+nnoremap ,f :%!astyle --style=linux --pad-header --pad-oper --indent-switches --indent=tab 
+			\--attach-return-type --break-one-line-headers 
+			\--align-pointer=name --align-reference=name<CR>
+" nnoremap ,g :%!astyle --style=linux --indent-switches --pad-header --pad-oper --delete-empty-lines --indent=tab<CR>
 " autocmd BufWritePre *.h,*.hpp,*.c,*.cpp :%!astyle --style=otbs --pad-oper --delete-empty-lines --indent=tab
 
 " Compile & Run
@@ -149,3 +157,40 @@ set tags+=/home/$USER/.tags/stdlib.tag
 if filereadable("./cscope.out")
 	cs add cscope.out
 endif
+
+
+"----------Coc.nvim relates!!!
+" Give more space for displaying messages.
+set cmdheight=2
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+" Use tab for trigger completion with characters ahead and navigate.
+" " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" " other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+	\ pumvisible() ? "\<C-n>" :
+	\ <SID>check_back_space() ? "\<TAB>" :
+	\ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>""
+
+function! s:check_back_space() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+							\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+	if (index(['vim','help'], &filetype) >= 0)
+		execute 'h '.expand('<cword>')
+	elseif (coc#rpc#ready())
+		call CocActionAsync('doHover')
+	else
+		execute '!' . &keywordprg . " " . expand('<cword>')
+	endif
+endfunction
