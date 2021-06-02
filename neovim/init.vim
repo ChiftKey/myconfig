@@ -109,9 +109,9 @@ highlight SpecialKey ctermfg=DarkGray guifg=#A0A0A0
 
 "----------Search
 set incsearch " show incremental search results as you type
-"without capital character -> ingnore
+"without capital character -> ignore
 "more than one capatal character -> case sensitve
-set smartcase
+set ignorecase smartcase
 
 "----------
 set noswapfile
@@ -126,6 +126,8 @@ nnoremap ,m :set number! list!<CR>
 nnoremap ,f :%!astyle --style=linux --pad-header --pad-oper --indent-switches --indent=tab 
 			\--attach-return-type --break-one-line-headers 
 			\--align-pointer=name --align-reference=name<CR>
+" TCC Style
+nnoremap ,t :%!astyle --style=bsd --indent=tab --indent-switches --pad-header --pad-oper --pad-comma --align-pointer=name<CR>
 " nnoremap ,g :%!astyle --style=linux --indent-switches --pad-header --pad-oper --delete-empty-lines --indent=tab<CR>
 " autocmd BufWritePre *.h,*.hpp,*.c,*.cpp :%!astyle --style=otbs --pad-oper --delete-empty-lines --indent=tab
 
@@ -154,10 +156,19 @@ set tags=./tags,tags
 set tags+=/home/$USER/.tags/stdlib.tag
 " set tags+=/home/$USER/.tags/dbus.tag
 " ---------- cscope
-if filereadable("./cscope.out")
-	cs add cscope.out
-endif
-
+function! LoadCscope()
+    let db = findfile("cscope.out", ".;")
+    if (!empty(db))
+        let path = strpart(db, 0, match(db, "/cscope.out$"))
+        set nocscopeverbose " suppress 'duplicate connection' error
+        exe "cs add " . db . " " . path
+        set cscopeverbose
+" else add the database pointed to by environment variable
+    elseif $CSCOPE_DB != ""
+        cs add $CSCOPE_DB
+        endif
+endfunction
+au BufEnter /* call LoadCscope()
 
 "----------Coc.nvim relates!!!
 " Give more space for displaying messages.
