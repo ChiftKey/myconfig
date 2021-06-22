@@ -118,8 +118,8 @@ set noswapfile
 
 " Clear highlight for search result				[,] -> [Space key]
 nnoremap ,<space> :noh<CR>
-" Toggle line number & white space formatting	[,] -> [m]
-nnoremap ,m :set number! list!<CR>
+" Toggle line number & white space formatting, GitGutter 	[,] -> [m]
+nnoremap ,m :set number! list!<CR>:GitGutterToggle<CR>
 "----------C code auto formatting
 " NOTE : asytle is required
 " auto formatting like linux kernel coding
