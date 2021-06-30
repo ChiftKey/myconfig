@@ -4,5 +4,5 @@
 ---
 ### using curl
 ```
-curl https://raw.githubusercontent.com/ChiftKey/myconfig/main/neovim/init.vim -o ~/.config/.tmux.conf
+curl https://raw.githubusercontent.com/ChiftKey/myconfig/main/tmux/tmux.conf -o ~/.config/.tmux.conf
 ```
