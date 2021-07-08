@@ -10,8 +10,8 @@ endif
 "----------Plug in Manger : vim-plug
 call plug#begin(stdpath('data') . '/plugged')
 " Color Scheme
-"Plug 'nanotech/jellybeans.vim'
-"Plug 'joshdick/onedark.vim'
+Plug 'nanotech/jellybeans.vim'
+Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 Plug 'ghifarit53/tokyonight-vim'
 " various languages enhanced syntax
@@ -93,8 +93,10 @@ set noexpandtab                         " use tabs, not spaces"
 
 " ---------- Color Scheme
 set background=dark
-"colorscheme jellybeans
-colorscheme gruvbox
+
+"colorscheme onedark
+colorscheme jellybeans
+"colorscheme gruvbox
 "let g:tokyonight_style = 'storm' " available: night, storm
 "let g:tokyonight_enable_italic = 1
 "colorscheme tokyonight
@@ -171,37 +173,4 @@ endfunction
 au BufEnter /* call LoadCscope()
 
 "----------Coc.nvim relates!!!
-" Give more space for displaying messages.
-set cmdheight=2
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-" Use tab for trigger completion with characters ahead and navigate.
-" " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" " other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-	\ pumvisible() ? "\<C-n>" :
-	\ <SID>check_back_space() ? "\<TAB>" :
-	\ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>""
-
-function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-							\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-	if (index(['vim','help'], &filetype) >= 0)
-		execute 'h '.expand('<cword>')
-	elseif (coc#rpc#ready())
-		call CocActionAsync('doHover')
-	else
-		execute '!' . &keywordprg . " " . expand('<cword>')
-	endif
-endfunction
+source ~/.config/nvim/coc-nvim.vim
