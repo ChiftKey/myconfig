@@ -14,8 +14,12 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 Plug 'ghifarit53/tokyonight-vim'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+Plug 'tomasr/molokai'
+Plug 'w0ng/vim-hybrid'
 " various languages enhanced syntax
 Plug 'sheerun/vim-polyglot'
+
 "--------------------
 " Status bar
 Plug 'vim-airline/vim-airline'
@@ -91,14 +95,21 @@ set smartindent
 set smarttab                            " make <tab> and <backspace> smarter"
 set noexpandtab                         " use tabs, not spaces"
 
+" Using clipboard
+set clipboard=unnamedplus
+vmap <C-c> "+y
+map <C-v> <ESC>"+p<CR>
+
 " ---------- Color Scheme
 set background=dark
-
+"colorscheme hybrid
+"colorscheme material
 "colorscheme onedark
 colorscheme jellybeans
 "colorscheme gruvbox
-"let g:tokyonight_style = 'storm' " available: night, storm
-"let g:tokyonight_enable_italic = 1
+" set termguicolors
+"let g:tokyonight_style = 'night' " available: night, storm
+"let g:tokyonight_enable_italic = 0
 "colorscheme tokyonight
 
 " ---------- Highlight
