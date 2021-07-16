@@ -61,6 +61,12 @@ let g:rainbow_active = 1
 set noshowmode
 " use airline theme
 let g:airline_theme='raven'
+" use airline tabline extension : customized tab info
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline#extensions#tabline#show_tab_count = 0
 
 "---------- Tagbar relates
 " when toggle tagbar the focus will move to tagbar window
