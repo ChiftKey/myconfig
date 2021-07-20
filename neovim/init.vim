@@ -20,6 +20,10 @@ Plug 'w0ng/vim-hybrid'
 " various languages enhanced syntax
 Plug 'sheerun/vim-polyglot'
 
+" fzf
+Plug 'junegunn/fzf.vim'
+Plug '~/.fzf'
+
 "--------------------
 " Status bar
 Plug 'vim-airline/vim-airline'
@@ -35,11 +39,12 @@ Plug 'luochen1990/rainbow'
 "--------------------
 " Tagbar
 Plug 'majutsushi/tagbar'
+
 "--------------------
 " use cscope easily
 Plug 'ronakg/quickr-cscope.vim'
 "--------------------
-Plug 'wesleyche/SrcExpl' " exploring the source code definition
+"Plug 'wesleyche/SrcExpl' " exploring the source code definition
 " Git Interaction
 Plug 'tpope/vim-fugitive'
 " highlight changing
@@ -48,7 +53,7 @@ Plug 'airblade/vim-gitgutter'
 " NOTE : required clangd
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Auto complete bracket, quotes
-Plug 'raimondi/delimitmate'
+"Plug 'raimondi/delimitmate'
 
 call plug#end()
 
@@ -82,9 +87,9 @@ noremap <F9> <Esc>:NERDTreeToggle<CR>
 nnoremap <F7> :SrcExplToggle<CR>
 let g:SrcExpl_winHeight = 8 "SrcExpl window height
 let g:SrcExpl_refreshTime = 100 "refreshing time = 100ms
-" // Set "Enter" key to jump into the exact definition context 
+" // Set "Enter" key to jump into the exact definition context
 let g:SrcExpl_jumpKey = "<ENTER>"
-" // Set "Space" key for back from the definition context 
+" // Set "Space" key for back from the definition context
 let g:SrcExpl_gobackKey = "<SPACE>"
 
 " show line number
@@ -105,6 +110,15 @@ set noexpandtab                         " use tabs, not spaces"
 set clipboard=unnamedplus
 vmap <C-c> "+y
 map <C-v> <ESC>"+p<CR>
+
+" Buffer change keymap
+map <leader>bn :bn<CR>
+map <leader>bp :bp<CR>
+map <leader>bd :bd<CR>
+
+" fzf keymap
+nnoremap <silent> ,f :FZF<cr>
+nnoremap <silent> ,F :FZF ~<cr>
 
 " ---------- Color Scheme
 set background=dark
@@ -137,13 +151,15 @@ set noswapfile
 
 " Clear highlight for search result				[,] -> [Space key]
 nnoremap ,<space> :noh<CR>
+" Trim unwanted trail space
+nnoremap ,s :%s/\s\+$//e<CR>
 " Toggle line number & white space formatting, GitGutter 	[,] -> [m]
 nnoremap ,m :set number! list!<CR>:GitGutterToggle<CR>
 "----------C code auto formatting
 " NOTE : asytle is required
 " auto formatting like linux kernel coding
-nnoremap ,f :%!astyle --style=linux --pad-header --pad-oper --indent-switches --indent=tab 
-			\--attach-return-type --break-one-line-headers 
+nnoremap ,c :%!astyle --style=linux --pad-oper --pad-comma --indent-switches --indent=tab
+			\--attach-return-type --break-one-line-headers
 			\--align-pointer=name --align-reference=name<CR>
 " TCC Style
 nnoremap ,t :%!astyle --style=bsd --indent=tab --indent-switches --pad-header --pad-oper --pad-comma --align-pointer=name<CR>
