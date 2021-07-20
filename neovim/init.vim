@@ -70,6 +70,8 @@ let g:airline_theme='raven'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_tab_nr = 1
+" show buffer number
+let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tabline#show_tab_count = 0
 
@@ -115,6 +117,7 @@ map <C-v> <ESC>"+p<CR>
 map <leader>bn :bn<CR>
 map <leader>bp :bp<CR>
 map <leader>bd :bd<CR>
+map <leader>bl :buffers<CR>
 
 " fzf keymap
 nnoremap <silent> ,f :FZF<cr>
@@ -158,9 +161,9 @@ nnoremap ,m :set number! list!<CR>:GitGutterToggle<CR>
 "----------C code auto formatting
 " NOTE : asytle is required
 " auto formatting like linux kernel coding
-nnoremap ,c :%!astyle --style=linux --pad-oper --pad-comma --indent-switches --indent=tab
-			\--attach-return-type --break-one-line-headers
-			\--align-pointer=name --align-reference=name<CR>
+nnoremap ,c :%!astyle --style=linux --pad-oper --pad-comma
+			\ --indent-switches --indent=tab --attach-return-type
+			\ --break-one-line-headers --align-pointer=name --align-reference=name<CR>
 " TCC Style
 nnoremap ,t :%!astyle --style=bsd --indent=tab --indent-switches --pad-header --pad-oper --pad-comma --align-pointer=name<CR>
 " nnoremap ,g :%!astyle --style=linux --indent-switches --pad-header --pad-oper --delete-empty-lines --indent=tab<CR>
