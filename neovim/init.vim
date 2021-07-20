@@ -24,16 +24,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
 
-set background=dark
-"colorscheme hybrid
-"colorscheme material
-"colorscheme onedark
-colorscheme jellybeans
-"colorscheme gruvbox
-" set termguicolors
-"let g:tokyonight_style = 'night' " available: night, storm
-"let g:tokyonight_enable_italic = 0
-"colorscheme tokyonight
 
 "----------[FZF : Fuzzy finder]----------
 Plug 'junegunn/fzf.vim'
@@ -47,7 +37,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 " Airline diplays status of editor so don't need to showmode
 " e.g. [-- INSERT --], [-- VISUAL --]
-"set noshowmode
+set noshowmode
 set cmdheight=1
 " use airline theme
 let g:airline_theme='raven'
@@ -81,6 +71,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "--------------------
 " Tagbar
 Plug 'majutsushi/tagbar'
+" when toggle tagbar the focus will move to tagbar window
+let g:tagbar_autofocus = 1
+" mapping only normal mode F8 to TagbarToggle
+nnoremap <F8> :TagbarToggle<CR>
 "--------------------
 " use cscope easily
 Plug 'ronakg/quickr-cscope.vim'
@@ -88,12 +82,22 @@ Plug 'ronakg/quickr-cscope.vim'
 
 call plug#end()
 
-"========== Plugin configuration
-"---------- Tagbar relates
-" when toggle tagbar the focus will move to tagbar window
-let g:tagbar_autofocus = 1
-" mapping only normal mode F8 to TagbarToggle
-nnoremap <F8> :TagbarToggle<CR>
+" ---------- Syntax
+if has("syntax")
+    syntax on
+endif
+filetype on
+
+set background=dark
+"colorscheme hybrid
+"colorscheme material
+"colorscheme onedark
+colorscheme jellybeans
+"colorscheme gruvbox
+" set termguicolors
+"let g:tokyonight_style = 'night' " available: night, storm
+"let g:tokyonight_enable_italic = 0
+"colorscheme tokyonight
 
 " show line number
 set number
@@ -119,8 +123,6 @@ map <leader>bn :bn<CR>
 map <leader>bp :bp<CR>
 map <leader>bd :bd<CR>
 map <leader>bl :buffers<CR>
-
-
 
 " ---------- Highlight
 set cursorline
@@ -164,11 +166,6 @@ nnoremap ,<F7> :!gcc -Wall -g %<CR>
 " map <F8> :w <CR> :!gcc % && ./a.out <CR>
 " map <F8> :w <CR> :!gcc % -o %< && ./%< <CR>
 
-" ---------- Syntax
-if has("syntax")
-    syntax on
-endif
-filetype on
 
 " save file with encoding
 set fileencoding=utf-8
