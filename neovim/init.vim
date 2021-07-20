@@ -9,61 +9,46 @@ endif
 
 "----------Plug in Manger : vim-plug
 call plug#begin(stdpath('data') . '/plugged')
-" Color Scheme
+
+"----------[COLOR SCHEME]----------
 Plug 'nanotech/jellybeans.vim'
-Plug 'joshdick/onedark.vim'
+"Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 Plug 'ghifarit53/tokyonight-vim'
-Plug 'kaicataldo/material.vim', { 'branch': 'main' }
-Plug 'tomasr/molokai'
-Plug 'w0ng/vim-hybrid'
+"Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+"Plug 'tomasr/molokai'
+"Plug 'w0ng/vim-hybrid'
 " various languages enhanced syntax
 Plug 'sheerun/vim-polyglot'
-
-" fzf
-Plug 'junegunn/fzf.vim'
-Plug '~/.fzf'
-
-"--------------------
-" Status bar
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-"--------------------
-" File Explorer
-Plug 'preservim/nerdtree'
-" File Explorer With Icon
-Plug 'ryanoasis/vim-devicons'
-"--------------------
 " Bracket Highlighter"
 Plug 'luochen1990/rainbow'
-"--------------------
-" Tagbar
-Plug 'majutsushi/tagbar'
-
-"--------------------
-" use cscope easily
-Plug 'ronakg/quickr-cscope.vim'
-"--------------------
-"Plug 'wesleyche/SrcExpl' " exploring the source code definition
-" Git Interaction
-Plug 'tpope/vim-fugitive'
-" highlight changing
-Plug 'airblade/vim-gitgutter'
-" Language auto complete
-" NOTE : required clangd
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Auto complete bracket, quotes
-"Plug 'raimondi/delimitmate'
-
-call plug#end()
-
-"========== Plugin configuration
-"---------- Rainbow bracket
 let g:rainbow_active = 1
-"---------- Airline relates
+
+set background=dark
+"colorscheme hybrid
+"colorscheme material
+"colorscheme onedark
+colorscheme jellybeans
+"colorscheme gruvbox
+" set termguicolors
+"let g:tokyonight_style = 'night' " available: night, storm
+"let g:tokyonight_enable_italic = 0
+"colorscheme tokyonight
+
+"----------[FZF : Fuzzy finder]----------
+Plug 'junegunn/fzf.vim'
+Plug '~/.fzf'
+" fzf keymap
+nnoremap <silent> ,f :FZF<cr>
+nnoremap <silent> ,F :FZF ~<cr>
+
+"----------[VIM-AIRLINE]----------
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " Airline diplays status of editor so don't need to showmode
 " e.g. [-- INSERT --], [-- VISUAL --]
-set noshowmode
+"set noshowmode
+set cmdheight=1
 " use airline theme
 let g:airline_theme='raven'
 " use airline tabline extension : customized tab info
@@ -75,24 +60,40 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tabline#show_tab_count = 0
 
+"----------[FILE EXPLORER]----------
+Plug 'preservim/nerdtree'
+" mapping not recursively F9 to NerdtreeToogle  all mode except for INSERT Mode
+noremap <F9> <Esc>:NERDTreeToggle<CR>
+
+" File Explorer With Icon
+Plug 'ryanoasis/vim-devicons'
+
+"----------[GIT INTEGRATION]----------
+Plug 'tpope/vim-fugitive'
+" highlight changing
+Plug 'airblade/vim-gitgutter'
+
+"----------[LANGUAGE AUTO COMPLETE]----------
+" NOTE : required clangd
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Auto complete bracket, quotes
+"Plug 'raimondi/delimitmate'
+"--------------------
+" Tagbar
+Plug 'majutsushi/tagbar'
+"--------------------
+" use cscope easily
+Plug 'ronakg/quickr-cscope.vim'
+"--------------------
+
+call plug#end()
+
+"========== Plugin configuration
 "---------- Tagbar relates
 " when toggle tagbar the focus will move to tagbar window
 let g:tagbar_autofocus = 1
 " mapping only normal mode F8 to TagbarToggle
 nnoremap <F8> :TagbarToggle<CR>
-
-"---------- NERDTree relates
-" mapping not recursively F9 to NerdtreeToogle  all mode except for INSERT Mode
-noremap <F9> <Esc>:NERDTreeToggle<CR>
-
-"---------- Source Explorer releates
-nnoremap <F7> :SrcExplToggle<CR>
-let g:SrcExpl_winHeight = 8 "SrcExpl window height
-let g:SrcExpl_refreshTime = 100 "refreshing time = 100ms
-" // Set "Enter" key to jump into the exact definition context
-let g:SrcExpl_jumpKey = "<ENTER>"
-" // Set "Space" key for back from the definition context
-let g:SrcExpl_gobackKey = "<SPACE>"
 
 " show line number
 set number
@@ -100,7 +101,7 @@ set numberwidth=2
 " tab size
 set tabstop=4
 set shiftwidth=4
-"---------- Indent
+" indent
 set autoindent
 set cindent
 " ignore indent when the preprocessor is typed
@@ -119,21 +120,7 @@ map <leader>bp :bp<CR>
 map <leader>bd :bd<CR>
 map <leader>bl :buffers<CR>
 
-" fzf keymap
-nnoremap <silent> ,f :FZF<cr>
-nnoremap <silent> ,F :FZF ~<cr>
 
-" ---------- Color Scheme
-set background=dark
-"colorscheme hybrid
-"colorscheme material
-"colorscheme onedark
-colorscheme jellybeans
-"colorscheme gruvbox
-" set termguicolors
-"let g:tokyonight_style = 'night' " available: night, storm
-"let g:tokyonight_enable_italic = 0
-"colorscheme tokyonight
 
 " ---------- Highlight
 set cursorline
