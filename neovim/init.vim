@@ -12,18 +12,16 @@ call plug#begin(stdpath('data') . '/plugged')
 
 "----------[COLOR SCHEME]----------
 Plug 'nanotech/jellybeans.vim'
-"Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 Plug 'ghifarit53/tokyonight-vim'
-"Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 "Plug 'tomasr/molokai'
 "Plug 'w0ng/vim-hybrid'
+
 " various languages enhanced syntax
 Plug 'sheerun/vim-polyglot'
 " Bracket Highlighter"
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
-
 
 "----------[FZF : Fuzzy finder]----------
 Plug 'junegunn/fzf.vim'
@@ -77,7 +75,11 @@ let g:tagbar_autofocus = 1
 nnoremap <F8> :TagbarToggle<CR>
 "--------------------
 " use cscope easily
-Plug 'ronakg/quickr-cscope.vim'
+"Plug 'ronakg/quickr-cscope.vim'
+Plug 'brookhong/cscope.vim'
+nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
+nnoremap <leader>l :call ToggleLocationList()<CR>" s: Find this C symbol
+
 "--------------------
 
 call plug#end()
@@ -88,16 +90,19 @@ if has("syntax")
 endif
 filetype on
 
+"set termguicolors
 set background=dark
+"colorscheme jellybeans
+"let g:jellybeans_use_term_italics = 1
+
+colorscheme gruvbox
+let g:gruvbox_contrast_dark='hard'
+"let g:gruvbox_italic=1
 "colorscheme hybrid
-"colorscheme material
-"colorscheme onedark
-colorscheme jellybeans
-"colorscheme gruvbox
-" set termguicolors
+"
+"colorscheme tokyonight
 "let g:tokyonight_style = 'night' " available: night, storm
 "let g:tokyonight_enable_italic = 0
-"colorscheme tokyonight
 
 " show line number
 set number
@@ -137,24 +142,24 @@ set incsearch " show incremental search results as you type
 "without capital character -> ignore
 "more than one capatal character -> case sensitve
 set ignorecase smartcase
-
 "----------
 set noswapfile
 
 " Clear highlight for search result				[,] -> [Space key]
 nnoremap ,<space> :noh<CR>
 " Trim unwanted trail space
-nnoremap ,s :%s/\s\+$//e<CR>
+nnoremap ,ct :%s/\s\+$//e<CR>
 " Toggle line number & white space formatting, GitGutter 	[,] -> [m]
-nnoremap ,m :set number! list!<CR>:GitGutterToggle<CR>
+nnoremap ,cm :set signcolumn=yes<CR>:set number list<CR>:GitGutterEnable<CR>
+nnoremap ,cn :set signcolumn=no<CR>:set number! list!<CR>:GitGutterDisable<CR>
 "----------C code auto formatting
 " NOTE : asytle is required
 " auto formatting like linux kernel coding
-nnoremap ,c :%!astyle --style=linux --pad-oper --pad-comma
+nnoremap ,ca :%!astyle --style=linux --pad-oper --pad-comma
 			\ --indent-switches --indent=tab --attach-return-type
 			\ --break-one-line-headers --align-pointer=name --align-reference=name<CR>
 " TCC Style
-nnoremap ,t :%!astyle --style=bsd --indent=tab --indent-switches --pad-header --pad-oper --pad-comma --align-pointer=name<CR>
+nnoremap ,cs :%!astyle --style=bsd --indent=tab --indent-switches --pad-header --pad-oper --pad-comma --align-pointer=name<CR>
 " nnoremap ,g :%!astyle --style=linux --indent-switches --pad-header --pad-oper --delete-empty-lines --indent=tab<CR>
 " autocmd BufWritePre *.h,*.hpp,*.c,*.cpp :%!astyle --style=otbs --pad-oper --delete-empty-lines --indent=tab
 
@@ -165,7 +170,6 @@ nnoremap ,<F6> :!gcc -Wall %<CR>
 nnoremap ,<F7> :!gcc -Wall -g %<CR>
 " map <F8> :w <CR> :!gcc % && ./a.out <CR>
 " map <F8> :w <CR> :!gcc % -o %< && ./%< <CR>
-
 
 " save file with encoding
 set fileencoding=utf-8
