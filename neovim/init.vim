@@ -65,7 +65,7 @@ Plug 'airblade/vim-gitgutter'
 " NOTE : required clangd
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Auto complete bracket, quotes
-"Plug 'raimondi/delimitmate'
+Plug 'raimondi/delimitmate'
 "--------------------
 " Tagbar
 Plug 'majutsushi/tagbar'
@@ -81,7 +81,16 @@ nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
 nnoremap <leader>l :call ToggleLocationList()<CR>" s: Find this C symbol
 
 "--------------------
+" Semicolon easily
+Plug 'lfilho/cosco.vim'
+autocmd FileType javascript,css,c,cpp nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
+autocmd FileType javascript,css,c,cpp imap <silent> <Leader>; <c-o><Plug>(cosco-commaOrSemiColon)
 
+" Autosave file
+Plug '907th/vim-auto-save'
+let g:auto_save = 1  " enable AutoSave on Vim startup
+let g:auto_save_silent = 1  " do not display the auto-save notification
+let g:auto_save_events = ["InsertLeave", "CursorHold"]
 call plug#end()
 
 " ---------- Syntax
