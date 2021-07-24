@@ -80,17 +80,22 @@ Plug 'brookhong/cscope.vim'
 nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
 nnoremap <leader>l :call ToggleLocationList()<CR>" s: Find this C symbol
 
-"--------------------
-" Semicolon easily
+" Easily insert a semicolon at the end of sentence
 Plug 'lfilho/cosco.vim'
 autocmd FileType javascript,css,c,cpp nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
 autocmd FileType javascript,css,c,cpp imap <silent> <Leader>; <c-o><Plug>(cosco-commaOrSemiColon)
 
-" Autosave file
+" Save file automatically
 Plug '907th/vim-auto-save'
 let g:auto_save = 1  " enable AutoSave on Vim startup
 let g:auto_save_silent = 1  " do not display the auto-save notification
 let g:auto_save_events = ["InsertLeave", "CursorHold"]
+
+" Commentate easily
+Plug 'preservim/nerdcommenter'
+filetype plugin on
+let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
+
 call plug#end()
 
 " ---------- Syntax
@@ -99,14 +104,14 @@ if has("syntax")
 endif
 filetype on
 
-"set termguicolors
+set termguicolors
 set background=dark
 "colorscheme jellybeans
 "let g:jellybeans_use_term_italics = 1
 
 colorscheme gruvbox
 let g:gruvbox_contrast_dark='hard'
-"let g:gruvbox_italic=1
+let g:gruvbox_italic=1
 "colorscheme hybrid
 "
 "colorscheme tokyonight
@@ -137,6 +142,11 @@ map <leader>bn :bn<CR>
 map <leader>bp :bp<CR>
 map <leader>bd :bd<CR>
 map <leader>bl :buffers<CR>
+
+"save key map
+nnoremap <silent><c-s> :<c-u>update<cr>
+vnoremap <silent><c-s> <c-c>:update<cr>gv
+inoremap <silent><c-s> <c-o>:update<cr>
 
 " ---------- Highlight
 set cursorline
