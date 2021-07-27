@@ -82,7 +82,8 @@ nnoremap <leader>l :call ToggleLocationList()<CR>" s: Find this C symbol
 
 " Easily insert a semicolon at the end of sentence
 Plug 'lfilho/cosco.vim'
-autocmd FileType javascript,css,c,cpp nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
+"autocmd FileType javascript,css,c,cpp nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
+autocmd FileType javascript,css,c,cpp nmap <silent> ;; <Plug>(cosco-commaOrSemiColon)
 autocmd FileType javascript,css,c,cpp imap <silent> <Leader>; <c-o><Plug>(cosco-commaOrSemiColon)
 
 " Save file automatically
