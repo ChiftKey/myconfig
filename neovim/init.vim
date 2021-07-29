@@ -43,10 +43,13 @@ let g:airline_theme='raven'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_tab_nr = 1
-" show buffer number
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+" not show tab count
 let g:airline#extensions#tabline#show_tab_count = 0
+" show buffer number
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_splits = 1
+"let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 
 "----------[FILE EXPLORER]----------
 Plug 'preservim/nerdtree'
@@ -58,6 +61,13 @@ Plug 'ryanoasis/vim-devicons'
 
 "----------[GIT INTEGRATION]----------
 Plug 'tpope/vim-fugitive'
+nnoremap <Leader>gs :Git<CR>
+nnoremap <Leader>gl :Gclog<CR>
+" Show only current file's log
+nnoremap <Leader>gll :Gclog %<CR>
+nnoremap <Leader>gvd :Gvdiffsplit<CR>
+nnoremap <Leader>gb :Git blame<CR>
+
 " highlight changing
 Plug 'airblade/vim-gitgutter'
 
@@ -66,14 +76,15 @@ Plug 'airblade/vim-gitgutter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Auto complete bracket, quotes
 Plug 'raimondi/delimitmate'
-"--------------------
-" Tagbar
+
+"----------[TAGBAR]----------
 Plug 'majutsushi/tagbar'
 " when toggle tagbar the focus will move to tagbar window
 let g:tagbar_autofocus = 1
 " mapping only normal mode F8 to TagbarToggle
 nnoremap <F8> :TagbarToggle<CR>
-"--------------------
+
+"----------[CSCOPE]----------
 " use cscope easily
 "Plug 'ronakg/quickr-cscope.vim'
 Plug 'brookhong/cscope.vim'
@@ -139,15 +150,15 @@ vmap <C-c> "+y
 map <C-v> <ESC>"+p<CR>
 
 " Buffer change keymap
-map <leader>bn :bn<CR>
-map <leader>bp :bp<CR>
-map <leader>bd :bd<CR>
-map <leader>bl :buffers<CR>
+map <F4> :bn<CR>
+map <F3> :bp<CR>
+map ,bd :bd<CR>
+map ,bl :buffers<CR>
 
 "save key map
-nnoremap <silent><c-s> :<c-u>update<cr>
-vnoremap <silent><c-s> <c-c>:update<cr>gv
-inoremap <silent><c-s> <c-o>:update<cr>
+" nnoremap <silent><c-s> :<c-u>update<cr>
+" vnoremap <silent><c-s> <c-c>:update<cr>gv
+" inoremap <silent><c-s> <c-o>:update<cr>
 
 " ---------- Highlight
 set cursorline
