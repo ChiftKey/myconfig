@@ -13,9 +13,11 @@ call plug#begin(stdpath('data') . '/plugged')
 "----------[COLOR SCHEME]----------
 Plug 'nanotech/jellybeans.vim'
 Plug 'morhetz/gruvbox'
-Plug 'ghifarit53/tokyonight-vim'
-"Plug 'tomasr/molokai'
+Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+Plug 'sjl/badwolf'
+Plug 'sainnhe/sonokai'
 "Plug 'w0ng/vim-hybrid'
+"Plug 'ayu-theme/ayu-vim' " or other package manager
 
 " various languages enhanced syntax
 Plug 'sheerun/vim-polyglot'
@@ -41,7 +43,9 @@ set cmdheight=1
 let g:airline_theme='raven'
 " use airline tabline extension : customized tab info
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+" Only show file name
+let g:airline#extensions#tabline#fnamemod = ':t'
+"let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_tab_nr = 1
 " not show tab count
 let g:airline#extensions#tabline#show_tab_count = 0
@@ -50,6 +54,8 @@ let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_splits = 1
 "let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline#extensions#tabline#tabs_label = 't'
+let g:airline#extensions#tabline#buffers_label = 'b'
 
 "----------[FILE EXPLORER]----------
 Plug 'preservim/nerdtree'
@@ -94,7 +100,7 @@ nnoremap <leader>l :call ToggleLocationList()<CR>" s: Find this C symbol
 " Easily insert a semicolon at the end of sentence
 Plug 'lfilho/cosco.vim'
 "autocmd FileType javascript,css,c,cpp nmap <silent> <Leader>; <Plug>(cosco-commaOrSemiColon)
-autocmd FileType javascript,css,c,cpp nmap <silent> ;; <Plug>(cosco-commaOrSemiColon)
+autocmd FileType javascript,css,c,cpp nmap <silent> ,; <Plug>(cosco-commaOrSemiColon)
 autocmd FileType javascript,css,c,cpp imap <silent> <Leader>; <c-o><Plug>(cosco-commaOrSemiColon)
 
 " Save file automatically
@@ -116,19 +122,25 @@ if has("syntax")
 endif
 filetype on
 
-set termguicolors
-set background=dark
-"colorscheme jellybeans
-"let g:jellybeans_use_term_italics = 1
+if has('termguicolors')
+	set termguicolors
+endif
 
+set background=dark
 colorscheme gruvbox
 let g:gruvbox_contrast_dark='hard'
 let g:gruvbox_italic=1
+
+"colorscheme badwolf
+
+"colorscheme jellybeans
+"let g:jellybeans_use_term_italics = 1
 "colorscheme hybrid
-"
-"colorscheme tokyonight
-"let g:tokyonight_style = 'night' " available: night, storm
-"let g:tokyonight_enable_italic = 0
+
+"colorscheme sonokai
+"let g:sonokai_style = 'andromeda'
+"let g:sonokai_enable_italic = 1
+"let g:sonokai_disable_italic_comment = 1
 
 " show line number
 set number
@@ -214,16 +226,16 @@ set tags+=/home/$USER/.tags/stdlib.tag
 " set tags+=/home/$USER/.tags/dbus.tag
 " ---------- cscope
 function! LoadCscope()
-    let db = findfile("cscope.out", ".;")
-    if (!empty(db))
-        let path = strpart(db, 0, match(db, "/cscope.out$"))
-        set nocscopeverbose " suppress 'duplicate connection' error
-        exe "cs add " . db . " " . path
-        set cscopeverbose
-" else add the database pointed to by environment variable
-    elseif $CSCOPE_DB != ""
-        cs add $CSCOPE_DB
-        endif
+	let db = findfile("cscope.out", ".;")
+	if (!empty(db))
+		let path = strpart(db, 0, match(db, "/cscope.out$"))
+		set nocscopeverbose " suppress 'duplicate connection' error
+		exe "cs add " . db . " " . path
+		set cscopeverbose
+		" else add the database pointed to by environment variable
+	elseif $CSCOPE_DB != ""
+		cs add $CSCOPE_DB
+	endif
 endfunction
 au BufEnter /* call LoadCscope()
 
