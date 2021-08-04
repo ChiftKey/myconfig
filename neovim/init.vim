@@ -114,6 +114,9 @@ Plug 'preservim/nerdcommenter'
 filetype plugin on
 let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
 
+" Ripgrep integrate
+Plug 'jremmen/vim-ripgrep'
+
 call plug#end()
 
 " ---------- Syntax
