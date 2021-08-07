@@ -115,7 +115,13 @@ filetype plugin on
 let g:NERDSpaceDelims = 1 " Add spaces after comment delimiters by default
 
 " Ripgrep integrate
-Plug 'jremmen/vim-ripgrep'
+"Plug 'jremmen/vim-ripgrep'
+Plug 'mileszs/ack.vim'
+source ~/.config/nvim/ack.vim
+
+" --------------------[MATCHIT]
+" extension of '%' command with XML, HTML, so on
+Plug 'vim-scripts/matchit.zip'
 
 call plug#end()
 
