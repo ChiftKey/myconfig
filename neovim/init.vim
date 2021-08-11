@@ -151,6 +151,9 @@ let g:gruvbox_italic=1
 "let g:sonokai_enable_italic = 1
 "let g:sonokai_disable_italic_comment = 1
 
+" Set Transparent if possible
+hi Normal guibg=NONE ctermbg=NONE
+
 " show line number
 set number
 set numberwidth=2
